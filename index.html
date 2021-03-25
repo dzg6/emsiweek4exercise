@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Grocery Order Form </title>
+    <meta name="description"
+        content="The one and only un-sensible grocery order form." />
+    <link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+</head>
+
+<body>
+    <div id="main">
+        <header id="banner">
+            <img src="imgs/group-of-vegetables.png" />
+
+        </header>
+        <div>
+            <h1>Grocery Order Form</h1>
+            <h2>Fruits</h2>
+            <p>You may only select one fruit. <span class="orange-text">Choose wisely.</span></p>
+            <label>Pick your fruit:</label>
+            <form>
+                <select>
+                    <option>Orange</option>
+                    <option>Apple</option>
+                    <option>Banana</option>
+                </select>
+                <input placeholder="number of fruit" max="10" min="1" />
+            </form>
+            <button>Add Fruit</button>
+            <h3>Fruit Prices</h3>
+            <table>
+                <tr>
+                    <th>Items</th>
+                    <th>Price</th>
+                </tr>
+                <tr>
+                    <td>Oranges</td>
+                    <td>$2/lb</td>
+                </tr>
+                <tr>
+                    <td>Apples</td>
+                    <td>$1.50/lb</td>
+                </tr>
+                <tr>
+                    <td>Banana</td>
+                    <td>$1/lb</td>
+                </tr>
+            </table>
+        </div> <!-- end fruits -->
+        <div>
+            <h2>Vegtables</h2>
+            <p>Enter the count for each vegetable. <a href="https://en.wikipedia.org/wiki/Vegetable">More info on
+                    veggies</a></p>
+            <ul style="list-style: none;" n>
+                <li><label>Heads of Broccoli</label>
+                    <input type="number" />
+                </li>
+                <li><label>Bell Peppers</label>
+                    <input type="number" />
+                </li>
+                <li><label>Zucchini</label>
+                    <input type="number" />
+                </li>
+                <button>Add Veggies to cart</button>
+            </ul>
+
+
+        </div>
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,92 @@
+body {
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	font-family: "Trebuchet MS", sans-serif;
+}
+
+#banner {
+	padding: 10px;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	background: linear-gradient(
+		0deg,
+		rgba(170, 219, 255, 1) 0%,
+		rgba(255, 255, 255, 1) 100%
+	);
+}
+
+#main {
+	width: 500px;
+}
+
+h1 {
+	text-align: center;
+}
+
+h2 {
+	border-bottom: 2px solid lightgray;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+td,
+th {
+	border: 1px solid lightgray;
+	padding: 8px;
+}
+
+th {
+	background-color: steelblue;
+	color: white;
+}
+
+tr:nth-child(even) {
+	background-color: lightgray;
+}
+
+tr:hover {
+	background-color: gray;
+	color: white;
+}
+
+button {
+	font-size: 16px;
+	cursor: pointer;
+	border: none;
+	border-radius: 5px;
+	box-shadow: 0 0 5px 1px darkgray;
+	padding: 5px 10px;
+	background: linear-gradient(
+		to bottom,
+		#f4f7fa 0%,
+		#d2e8f6 50%,
+		#bedef4 51%,
+		#e7f4fd 100%
+	);
+}
+
+select {
+	color: gray;
+	border: 2px solid lightgray;
+	border-radius: 5px;
+	padding: 5px 10px;
+}
+
+input {
+	color: gray;
+	background: linen;
+	border: none;
+	border-bottom: 2px dashed lightgray;
+	margin: 0 10px 10px;
+	padding: 5px 10px;
+	width: 40px;
+}
+
+.orange-text {
+	color: orange;
+}
