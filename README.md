@@ -9,7 +9,7 @@ Before running and testing the api, check out the data/fruits folder. You will n
  
 This was my first time writing and building in python and picked up quite a bit for this first exercise.
 
-![concept-gif](./concept.gif)
+![concept-gif](./imgs/concept.gif)
 
 <br />
 
