@@ -3,7 +3,7 @@
 Created by Mark Reynolds
 
 ## Concept:
-To create a local python server/api that collects fruit and vegetable excel files, reads the files, and serves the new produce with prices as a JSON object to the original HTML exercise. I have also added some react to the bottom of index.html to test the api scripts.
+To create a local python server/api that collects fruit and vegetable excel files located on [usda.gov](https://www.ers.usda.gov/data-products/fruit-and-vegetable-prices/fruit-and-vegetable-prices/#Vegetables), reads the files, and serves the new produce with prices as a JSON object to the original HTML exercise. I have also added some react to the bottom of index.html to test the api scripts.
  
 Before running and testing the api, check out the data/fruits folder. You will notice there are only 3 excel sheets. Watch this folder after you click the download excel button.
  
