@@ -37,3 +37,9 @@ Now in the root folder load up the index.html in your browser!
 * xlrd
 * openpyxl
 
+## Video of me coding python
+[![Python Programming sped up](http://img.youtube.com/vi/ID96Kj2_alQ/0.jpg)](http://www.youtube.com/watch?v=ID96Kj2_alQ "Python Programing speed up")
+
+
+
+
