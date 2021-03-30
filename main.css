@@ -90,3 +90,21 @@ input {
 .orange-text {
 	color: orange;
 }
+
+
+/* Mark CSS */
+
+#server-box {
+	background-color: rgb(219, 213, 213);
+	margin-top:10px;
+	padding: 3px 10px;
+	border-radius: 5px;
+	border: 1px rgb(121, 119, 119);
+	border-left: 5px rgb(121, 119, 119);
+	border-style: solid;
+}
+#server-msg {
+	color: #979797;
+	font-style: italic;
+
+}

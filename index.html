@@ -4,185 +4,239 @@
 <head>
     <meta charset="utf-8">
     <title>Grocery Order Form </title>
-    <meta name="description"
-        content="The one and only un-sensible grocery order form." />
+    <meta name="description" content="The one and only un-sensible grocery order form." />
     <link rel="stylesheet" type="text/css" href="main.css" media="screen" />
 
 </head>
 
 <body>
-        <header id="banner">
-            <img src="imgs/group-of-vegetables.png" />
+    <header id="banner">
+        <img src="imgs/group-of-vegetables.png" />
 
-        </header>
-        <div  id="main">
-            <div>
-                <button onclick={getData()}>
-                    getFruits</button>
-
-                    <button onclick={getData2()}>
-                        updateFruits</button>
+    </header>
+    <div id="main">
+        <div>
+            <h1>Python API</h1>
+            <div style="text-align: center;">
+                <button onclick={updateFruits()}>
+                    Update Fruits</button>
+                &nbsp;
+                <button onclick={updatePrices()}>
+                    Download USDA XLSX's</button>
             </div>
-    
-            <div id="like_button_container" data-commentid="1" id="morlk"></div>
+            <div id="server-box">
+                server: <span id="server-msg"></span>
+            </div>
+        </div>
 
-            <h1>Grocery Order Form</h1>
-            <h2>Fruits</h2>
-            <p>You may only select one fruit. <span class="orange-text">Choose wisely.</span></p>
-            <label>Pick your fruit:</label>
-            <form>
-                <select id="pick-fruit">
-                    <option>Orange</option>
-                    <option>Apple</option>
-                    <option>Banana</option>
-                </select>
-                <input placeholder="number of fruit" max="10" min="1" />
-            </form>
-            <button>Add Fruit</button>
-            <h3>Fruit Prices</h3>
-            <div  id="table-test"><table>
-                <tr>
-                    <th>Items</th>
-                    <th>Price</th>
-                </tr>
-                <tr>
-                    <td>Oranges</td>
-                    <td>$2/lb</td>
-                </tr>
-                <tr>
-                    <td>Apples</td>
-                    <td>$1.50/lb</td>
-                </tr>
-                <tr>
-                    <td>Banana</td>
-                    <td>$1/lb</td>
-                </tr>
+        <div id="like_button_container" data-commentid="1" id="morlk"></div>
+
+        <h1>Grocery Order Form</h1>
+        <h2>Fruits</h2>
+        <p>You may only select one fruit. <span class="orange-text">Choose wisely.</span></p>
+        <label>Pick your fruit:</label>
+        <form>
+            <select id="pick-fruit">
+                <option>Orange</option>
+                <option>Apple</option>
+                <option>Banana</option>
+            </select>
+            <input placeholder="number of fruit" max="10" min="1" />
+        </form>
+        <button>Add Fruit</button>
+        <h3>Fruit Prices</h3>
+        <div>
+            <table id="table-test">
+                <tbody>
+                    <tr>
+                        <th>Items</th>
+                        <th>Price</th>
+                    </tr>
+                    <tr>
+                        <td>Oranges</td>
+                        <td>$2/lb</td>
+                    </tr>
+                    <tr>
+                        <td>Apples</td>
+                        <td>$1.50/lb</td>
+                    </tr>
+                    <tr>
+                        <td>Banana</td>
+                        <td>$1/lb</td>
+                    </tr>
+                </tbody>
             </table>
         </div>
-        </div> <!-- end fruits -->
-        <div>
-            <h2>Vegtables</h2>
-            <p>Enter the count for each vegetable. <a href="https://en.wikipedia.org/wiki/Vegetable">More info on
-                    veggies</a></p>
-            <ul style="list-style: none;" n>
-                <li><label>Heads of Broccoli</label>
-                    <input type="number" />
-                </li>
-                <li><label>Bell Peppers</label>
-                    <input type="number" />
-                </li>
-                <li><label>Zucchini</label>
-                    <input type="number" />
-                </li>
-                <button>Add Veggies to cart</button>
-            </ul>
+    </div> <!-- end fruits -->
+    <div>
+        <h2>Vegtables</h2>
+        <p>Enter the count for each vegetable. <a href="https://en.wikipedia.org/wiki/Vegetable">More info on
+                veggies</a></p>
+        <ul style="list-style: none;" n>
+            <li><label>Heads of Broccoli</label>
+                <input type="number" />
+            </li>
+            <li><label>Bell Peppers</label>
+                <input type="number" />
+            </li>
+            <li><label>Zucchini</label>
+                <input type="number" />
+            </li>
+            <button>Add Veggies to cart</button>
+        </ul>
 
 
-        </div>
+    </div>
 
-                <!-- REACT JS -->
-      <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
-      <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
-      <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <!-- REACT JS -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 
-      <script type="text/babel">
-      let gloablFruit = null;
-            function getData(e) {
-//   console.log(e.target.id)
+    <script type="text/babel">
 
 
-  const request = new Request('http://localhost:5000/fruits');
-  fetch(request)
-  .then(response => response.json())
-  .then(data => {
-    gloablFruit = data;
+        /**
+         * Updates the the fruit table and select options
+         *
+         *  1: Initial server request and server-msg update
+         *  2: On Success Updates the fruit table and fruit list
+         * 
+         */
+        function updateFruits() {
 
-    let domContainer = document.querySelector('#table-test');
-    ReactDOM.render(<GetFruitTable test={data} />, domContainer);
+            //  --  1  --  //
+            const request = new Request('http://localhost:5000/fruits');
+            ReactDOM.render(<UpdateServerMSG msg='Reading USDA fruit excels.' loading={true} />, document.querySelector('#server-msg')); // Server MSG
 
-    let domContainer2 = document.querySelector('#pick-fruit');
-    ReactDOM.render(<GetFruits test={data} />, domContainer2);
+            fetch(request)
+                .then(response => response.json())
+                .then(data => {
 
-    // console.log('Success:', data);
-  })
-  .catch((error) => {
-    console.error('Error:', error);
-  });
-}
+                    //  --  2 --- //
+                    ReactDOM.render(<UpdateServerMSG msg='Success! Fruit prices updated.' loading={false} />, document.querySelector('#server-msg')); // Server MSG
+                    ReactDOM.render(<GetFruitTable fruits={data.data} />, document.querySelector('#table-test')); // Fruit Table
+                    ReactDOM.render(<GetFruitOptions fruits={data.data} />, document.querySelector('#pick-fruit')); // Fruit Options
 
-function getData2(e) {
-const request2 = new Request('http://localhost:5000//updatePrices');
-  fetch(request2)
-  .then(response => response.json())
-  .then(data => {
-
-    // let domContainer = document.querySelector('#table-test');
-    // ReactDOM.render(<GetFruitTable test={data} />, domContainer);
-
-
-    console.log('Success:');
-  })
-  .catch((error) => {
-    console.error('Error:', error);
-  });
-}
-
-
-const getValues = e => {
-                return "test"
-                };
-class GetFruits extends React.Component {
-            constructor(props) {
-                super(props);
-                this.state = { fruit: props.test.data };
-                
-
-            }
-
-            render() {
-                //  this.setState({ fruit: gloablFruit})
-                let list = gloablFruit.data
-                console.log("list")
-                console.log(list)
-                let sample = [];
-
-                    let i = 0
-                for (const [key, value] of Object.entries(list)) {
-                        sample.push( <option>{value.name}</option>);
-                }
-                return (
-                   sample
-                );
-            }
+                })
+                .catch((error) => {
+                    ReactDOM.render(<UpdateServerMSG msg='ERROR: could not connect to server' loading={false} />, document.querySelector('#server-msg')); 
+                }); 
         }
-                
-class GetFruitTable extends React.Component {
-            constructor(props) {
-                super(props);
-                this.state = { fruit: props.test.data };
 
+
+        /**
+         * Send a request to the server to download all of the Fruit XLSX files from
+         *  https://www.ers.usda.gov/data-products/fruit-and-vegetable-prices/fruit-and-vegetable-prices/#Vegetables
+         *
+         *  1: Initial server request and serve-msg/loading animation loop start
+         *  2: On Success on files being downloaded
+         * 
+         */
+        function updatePrices(e) {
+            //  --  1 --- //
+            ReactDOM.render(<UpdateServerMSG msg='starting download for https://www.ers.usda.gov' loading={true} />, document.querySelector('#server-msg'));
+            LoadingAnimation()
+
+            const request2 = new Request('http://localhost:5000//updatePrices');
+            fetch(request2)
+                .then(response => response.json())
+                .then(data => {
+                    //  --  2 --- //
+                    ReactDOM.render(<UpdateServerMSG msg='Success! All excel files have been downloaded.
+                         Please click update fruits :)' loading={false} />, document.querySelector('#server-msg')); // Server MSG
+                })
+                .catch((error) => {
+                    ReactDOM.render(<UpdateServerMSG msg='ERROR: could not connect to server' loading={false} />, document.querySelector('#server-msg'));
+                });
+        }
+
+        
+
+        /**
+         * Text Animation Loop - 
+         *  Loop is infinite and controled by global animationSwitch 
+         * 
+         * @return - Updates the ReactDom over returning any text
+         *
+         */
+        let animationSwitch = false; //Global variable to control the loading state since I dont have react-redux to manage my states 
+        function LoadingAnimation() {
+            let timer;
+            let x = 0;
+            function animation() {
+                if (animationSwitch == false) {
+                    clearInterval(timer)
+                } else {
+                    let element = x % 3;
+                    element = element == 0 ? "Downloading." : element == 1 ? "Downloading.." : element == 2 ? "Downloading..." : null;
+                    ReactDOM.render(element, document.querySelector('#server-msg'))
+                    x++
+                    timer = setTimeout(animation, 1000);
+                }
+            }
+            animation();
+        }
+
+        /**
+         * Returns server msg
+         *
+         * @param {string} props.msg server response text
+         * @param {boolean} props.loading a boolean to control the animationSwitch
+         * @return {string} returns the server status in a string
+         */
+        function UpdateServerMSG(props) {
+            const msg = props.msg;
+            animationSwitch = props.loading ? true : false;
+            return (
+                msg
+            );
+        }
+
+        /**
+         * Returns HTML for fruit options
+         *
+         * @param {object} props.fruit server response of all the fruit excel information
+         * @return {JSX} returns all the new options to be updated by ReactDom
+         */
+        function GetFruitOptions(props) {
+            let output = [];
+
+            for (const [key, value] of Object.entries(props.fruits)) {
+                output.push(<option key={value.name} value={value.name}>{value.name}</option>);
             }
 
-            render() {
-                let list = gloablFruit.data
-                let sample = [];
+            return (
+                output
+            );
 
-                    let i = 0
-                for (const [key, value] of Object.entries(list)) {
-                        sample.push( <tr><td>{value.name}</td><td>{value.price}</td></tr>);
-                }
-                return (
-                    <table>
+        }
+
+        /**
+         * Returns HTML  for fruit table
+         *
+         * @param {object} props.fruit server response of all the fruit excel information
+         * @return {JSX} returns the new tbody with the updated fruit and fruit prices
+         */
+        function GetFruitTable(props) {
+            let output = [];
+
+            for (const [key, value] of Object.entries(props.fruits)) {
+                output.push(<tr key={value.name}><td>{value.name}</td><td>${value.price}/lb</td></tr>);
+            }
+
+            return (
+                <tbody>
                     <tr>
-                    <th>Items</th>
-                    <th>Price</th>
-                </tr>
-                   { sample}
-                   </table>
-                );
-            }
+                        <th>Items</th>
+                        <th>Price</th>
+                    </tr>
+                    {output}
+                </tbody>
+            );
+
         }
-      </script>
+    </script>
 
 </body>
 
