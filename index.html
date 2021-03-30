@@ -7,21 +7,31 @@
     <meta name="description"
         content="The one and only un-sensible grocery order form." />
     <link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+
 </head>
 
 <body>
-    <div id="main">
         <header id="banner">
             <img src="imgs/group-of-vegetables.png" />
 
         </header>
-        <div>
-            <h1>Grocery Order Form - Python</h1>
+        <div  id="main">
+            <div>
+                <button onclick={getData()}>
+                    getFruits</button>
+
+                    <button onclick={getData2()}>
+                        updateFruits</button>
+            </div>
+    
+            <div id="like_button_container" data-commentid="1" id="morlk"></div>
+
+            <h1>Grocery Order Form</h1>
             <h2>Fruits</h2>
             <p>You may only select one fruit. <span class="orange-text">Choose wisely.</span></p>
             <label>Pick your fruit:</label>
             <form>
-                <select>
+                <select id="pick-fruit">
                     <option>Orange</option>
                     <option>Apple</option>
                     <option>Banana</option>
@@ -30,7 +40,7 @@
             </form>
             <button>Add Fruit</button>
             <h3>Fruit Prices</h3>
-            <table>
+            <div  id="table-test"><table>
                 <tr>
                     <th>Items</th>
                     <th>Price</th>
@@ -48,6 +58,7 @@
                     <td>$1/lb</td>
                 </tr>
             </table>
+        </div>
         </div> <!-- end fruits -->
         <div>
             <h2>Vegtables</h2>
@@ -69,7 +80,110 @@
 
         </div>
 
-    </div>
+                <!-- REACT JS -->
+      <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+      <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+      <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+      <script type="text/babel">
+      let gloablFruit = null;
+            function getData(e) {
+//   console.log(e.target.id)
+
+
+  const request = new Request('http://localhost:5000/fruits');
+  fetch(request)
+  .then(response => response.json())
+  .then(data => {
+    gloablFruit = data;
+
+    let domContainer = document.querySelector('#table-test');
+    ReactDOM.render(<GetFruitTable test={data} />, domContainer);
+
+    let domContainer2 = document.querySelector('#pick-fruit');
+    ReactDOM.render(<GetFruits test={data} />, domContainer2);
+
+    // console.log('Success:', data);
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+}
+
+function getData2(e) {
+const request2 = new Request('http://localhost:5000//updatePrices');
+  fetch(request2)
+  .then(response => response.json())
+  .then(data => {
+
+    // let domContainer = document.querySelector('#table-test');
+    // ReactDOM.render(<GetFruitTable test={data} />, domContainer);
+
+
+    console.log('Success:');
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+}
+
+
+const getValues = e => {
+                return "test"
+                };
+class GetFruits extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = { fruit: props.test.data };
+                
+
+            }
+
+            render() {
+                //  this.setState({ fruit: gloablFruit})
+                let list = gloablFruit.data
+                console.log("list")
+                console.log(list)
+                let sample = [];
+
+                    let i = 0
+                for (const [key, value] of Object.entries(list)) {
+                        sample.push( <option>{value.name}</option>);
+                }
+                return (
+                   sample
+                );
+            }
+        }
+                
+class GetFruitTable extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = { fruit: props.test.data };
+
+            }
+
+            render() {
+                let list = gloablFruit.data
+                let sample = [];
+
+                    let i = 0
+                for (const [key, value] of Object.entries(list)) {
+                        sample.push( <tr><td>{value.name}</td><td>{value.price}</td></tr>);
+                }
+                return (
+                    <table>
+                    <tr>
+                    <th>Items</th>
+                    <th>Price</th>
+                </tr>
+                   { sample}
+                   </table>
+                );
+            }
+        }
+      </script>
+
 </body>
 
 </html>
