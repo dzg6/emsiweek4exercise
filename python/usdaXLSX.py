@@ -11,7 +11,7 @@ def createFruit(name, price):
     return  {"name" : name, "price" : price}
 
     
-#  Scrapes USDA website and get the appropiate link inforation for Fruit and Vegetable Excel sheets
+#  Scrapes USDA website and get the appropiate link information for Fruit and Vegetable Excel sheets
 #  Input: Callback function to download the files
 def getUSDALinks(downloadCallback):
     url = 'https://www.ers.usda.gov/data-products/fruit-and-vegetable-prices/fruit-and-vegetable-prices/#Vegetables'
